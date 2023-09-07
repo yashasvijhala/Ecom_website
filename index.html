@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Title Here</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glide@3.5.1/dist/css/glide.core.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glide@3.5.1/dist/css/glide.theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/splide@3.0.9/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/splide@3.0.9/dist/js/splide.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/4d7f23b7c3.js" crossorigin="anonymous"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
+    <script src="ecom.js" defer></script>
+
+</head>
+<body>
+    <!--Header-->
+   <header>
+    <div class="navbar flex justify-between items-center p-4">
+        <div class="md:hidden"> <!-- Show only on small screens -->
+            <div class="hamburger inline-block p-4 cursor-pointer" id="menuToggle">
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+            </div>
+            <div id="mobileMenu" class="hidden absolute top-14 right-0 z-10 bg-white w-48 border border-gray-300 rounded shadow-md">
+                <div class="p-4">
+                    <div class="fitem">Microsoft 365</div>
+                    <div class="fitem">Office</div>
+                    <div class="fitem">Windows</div>
+                    <div class="fitem">Surface</div>
+                    <div class="fitem">Xbox</div>
+                    <div class="fitem">Support</div>
+                </div>
+            </div>
+        </div>
+        <div class="logo text-center">
+            <div><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>Microsoft</div>
+        </div>
+
+        <div class="hidden md:flex justify-center items-center w-full md:w-auto ml-10"> 
+            <button class="search focus:outline-none " id="searchButton">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.351-4.35M15 10a5 5 0 11-10 0 5 5 0 0110 0z"/>
+                </svg>
+            </button>
+    
+            <button class="cart text-center focus:outline-none ml-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 001.9 1.61H18"></path>
+                    <path d="M16 5a2 2 0 00-2-2a2 2 0 00-2 2"></path>
+                </svg>
+                
+            </button>
+        </div>
+       
+         <!-- Search box -->
+         <div id="searchBox" class="hidden">
+            <input
+                id="searchInput"
+                type="text"
+                class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Search"
+            >
+            <button id="searchButton">Search</button>
+        </div>
+
+        <!-- Product dropdown -->
+        <select id="productDropdown" class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">All Products</option>
+        </select>
+    
+        <div class="hidden md:flex mx-4 space-x-2"> <!-- Hidden on mobile screens -->
+            <div class="fitem">Microsoft 365</div>
+            <div class="fitem">Office</div>
+            <div class="fitem">Windows</div>
+            <div class="fitem">Surface</div>
+            <div class="fitem">Xbox</div>
+            <div class="fitem">Support</div>
+        </div>
+    </div>
+   </header>
+       <!--Main-->
+<main>
+    <div class="slider flex-col-reverse md:flex-row bg-[#f2f2f2]">
+        <article x-data="slider" class="relative w-full flex flex-shrink-0 overflow-hidden shadow-2xl">
+            <div class="rounded-full bg-gray-600 text-white absolute top-5 right-5 text-sm px-2 text-center z-10">
+                <span x-text="currentIndex"></span>/
+                <span x-text="images.length"></span>
+            </div>
+        
+            <template x-for="(image, index) in images">
+                <figure class="max-h-full" x-show="currentIndex == index + 1" x-transition:enter="transition transform duration-300"
+                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition transform duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0">
+                    <div class="slider flex-col-reverse md:flex-row bg-[#f2f2f2]">
+                        <div class="left flex flex-col justify-center items-center md:items-baseline py-12 ml-32 space-y-5">
+                            <h1 class="text-2xl font-medium md:text-4xl mx-5">Surface Laptop 4</h1>
+                            <p class="w-3/4 mx-5 text-center md:text-left">
+                                Do it all with a perfect balance of sleek, ultra-thin design, multitasking
+                                speed, and improved performance
+                            </p>
+                            <button class="text-white bg-black px-4 py-2 my-6 font-bold mx-5">
+                                Shop Now >
+                            </button>
+                        </div>
+                        <div class="right flex justify-center items-center mt-[-20px]">
+                            <img class="max-w-full h-auto" x-bind:src="image" alt="" />
+                        </div>
+                    </div>
+                </figure>
+            </template>
+        
+            <button @click="back()"
+                class="absolute left-14 top-1/2 -translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
+                <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7">
+                    </path>
+                </svg>
+            </button>
+        
+            <button @click="next()"
+            class="absolute right-14 top-1/2 translate-y-1/2 w-11 h-11 flex justify-center items-center rounded-full shadow-md z-10 bg-gray-100 hover:bg-gray-200">
+                <svg class=" w-8 h-8 font-bold transition duration-500 ease-in-out transform motion-reduce:transform-none text-gray-500 hover:text-gray-600 hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </article>
+        
+    </div>
+ 
+    <div class="promo space-y-6 flex flex-col lg:flex-row justify-center mt-40">
+  <div class="item flex items-center mx-4 mt-6 space-x-2 md:flex-col">
+    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/gldn-Quick-Link-Icon-80x80-Microsoft-365?wid=40&hei=40" alt="" />
+    <span class="font-medium md:w-[8rem] md:text-center text-sm my-4"
+      >Choose your Microsoft 365</span>
+  </div>
+  <div class="item flex items-center mx-4 mt-6 space-x-2 md:flex-col">
+    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/surface-go2-link-list-120x120?wid=40&hei=40" alt="" />
+    <span class="font-medium md:w-[8rem] md:text-center text-sm my-4"
+      >Explore Surface device</span>
+  </div>
+  <div class="item flex items-center mx-4 mt-6 space-x-2 md:flex-col">
+    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/xbox-blk-logo-link-list-120x120?wid=40&hei=40" alt="" />
+    <span class="font-medium md:w-[8rem] md:text-center text-sm my-4"
+      >Buy xbox</span>
+  </div>
+  <div class="item flex items-center mx-4 mt-6 space-x-2 md:flex-col">
+    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/gldn-Quick-Link-Icon-80x80-Microsoft-365?wid=40&hei=40" alt="" />
+    <span class="font-medium md:w-[8rem] md:text-center text-sm my-4"
+      >Get windows 11</span>
+  </div>
+</div><br><br>
+
+ 
+    <section id="offerSection" class="bg-gray-100 py-8 flex justify-center items-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold mb-4 text-center ">Special Offer</h2><br>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Offer cards go here -->
+                <!-- Offer card 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md offer-card">
+                    <img src="https://assets.xboxservices.com/assets/e9/63/e96370bf-ad68-4af8-82d6-2c980b75d0c0.png?n=Gen-9-Accessories_Merlin_Cross_Sell_408x376.png" alt="Offer 1" class="w-full h-60 md:h-80 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Xbox Wireless Controller Robot White</h3>
+                        <p class="text-gray-600 max-h-20 overflow-hidden">Stay on target with the hybrid D-pad, textured grip on the triggers, bumpers, and back-case.</p>
+                        <p class="text-green-500 font-semibold mt-2">$49.99 <span class="text-gray-400 line-through">$59.99</span></p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 mt-2">Add to Cart</button>
+            
+                    </div>
+                </div>
+    
+                <!-- Offer card 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md offer-card">
+                    <img src="https://assets.xboxservices.com/assets/fa/31/fa3130c2-f9aa-40f0-9887-138c27a18d26.png?n=Gen-9-Accessories_06592875_Cross_Sell_300x350.png" alt="Offer 2" class="w-full h-60 md:h-80 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Xbox Wireless Headset</h3>
+                        <p class="text-gray-600 max-h-20 overflow-hidden">Free up space on your console’s internal drive with the Seagate Game Drive for Xbox One and Xbox 360.</p>
+                        <p class="text-green-500 font-semibold mt-2">$79.99 <span class="text-gray-400 line-through">$89.99</span></p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 mt-2">Add to Cart</button>
+                     
+                    </div>
+                </div>
+    
+                <!-- Offer card 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md offer-card">
+                    <img src="https://assets.xboxservices.com/assets/9b/1c/9b1ce0f4-893b-4150-b9e8-42199dff350c.png?n=Gen-9-Accessories_3P-Seagate-512_Cross_Sell_300x350.png" alt="Offer 3" class="w-full h-60 md:h-80 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Seagate Game Drive for Xbox</h3>
+                        <p class="text-gray-600 max-h-20 overflow-hidden">Hear ‘em coming. Never miss a beat with the Xbox Wireless Headset.</p>
+                        <p class="text-green-500 font-semibold mt-2">$99.99 <span class="text-gray-400 line-through">$129.99</span></p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 mt-2">Add to Cart</button>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Video section -->
+    <div class="container mx-auto px-4">
+        <div class="right flex justify-center items-center mt-40 ml-40 mr-40 mb-40">
+            <!-- Adjust the margin-top value as needed -->
+            <video class="max-w-full h-auto" autoplay loop muted>
+                <source src="https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/Laptop_Studio_Autoplay_1920x1156" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+<!-- add button -->
+<section id="productsSection" class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-semibold text-center mb-4">Our Products</h2>
+        <div id="productCards" class="product-cards flex flex-wrap justify-center mt-4 p-4 space-x-5">
+            <!-- Your product cards will be dynamically added here -->
+        </div>
+    </div>
+    <div class="flex justify-center items-center">
+        <button id="toggleFormButton" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 0 448 512" id="toggleForm"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+        </button>
+    </div>
+</section>
+
+
+
+<form id="productForm" class="hidden bg-white p-4 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Add a Product</h2>
+    <div class="mb-4">
+        <label for="productName" class="block text-gray-700">Product Name</label>
+        <input type="text" id="productName" placeholder="Product Name" required
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+    </div>
+    <div class="mb-4">
+        <label for="productDescription" class="block text-gray-700">Product Description</label>
+        <input type="text" id="productDescription" placeholder="Product Description" required
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+    </div>
+    <div class="mb-4">
+        <label for="productPrice" class="block text-gray-700">Product Price</label>
+        <input type="number" id="productPrice" placeholder="Product Price" required
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+    </div>
+    <div class="mb-4">
+        <label for="productimage" class="block text-gray-700">Product Price</label>
+        <input type="url" id="productimg" placeholder="Product image" required
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+    </div>
+    
+    <button type="button" id="addProductButton"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full">Add Product</button>
+</form>
+  
+    <div class="right flex justify-center items-center mt-40"> 
+        <img class="max-w-full h-auto p-4" src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Highlight-Games-Starfield-Key-Art:VP4-1260x600" alt="" />
+    </div>
+    <div class="right flex flex-col justify-center items-center md:items-baseline py-12 ml-32 space-y-5">
+        <h1 class="text-2xl font-medium md:text-4xl mx-5">Pre-order Starfield and play before launch</h1>
+        <p class="w-3/4 mx-5 text-center md:text-left">
+            Get up to 5 days early access when you buy Starfield Premium Edition.*
+        </p>
+        <button class="text-white bg-blue-500 px-4 py-2 my-6 font-bold mx-5">
+            Shop Now >
+        </button>
+    </div>
+</main>
+   
+    <!--Footer-->
+    <footer class="bg-white text-black py-4 text-center">
+        <section class="bg-gray-100 py-8">
+            <div class="container mx-auto p-4">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto text-gray-500">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2">What's new</th>
+                                <th class="px-4 py-2">Microsoft Store</th>
+                                <th class="px-4 py-2">Business</th>
+                                <th class="px-4 py-2">Developer & IT</th>
+                                <th class="px-4 py-2">Company</th>
+                                <th class="px-4 py-2">Education</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 text-center">Microsoft 365</td>
+                                <td class="px-4 py-2 text-center">Games</td>
+                                <td class="px-4 py-2 text-center">Surface Pro 9</td>
+                                <td class="px-4 py-2 text-center">Surface Laptop 9</td>
+                                <td class="px-4 py-2 text-center"><a href="#">Surface Laptop studio </a></td>
+                                <td class="px-4 py-2 text-center"><a href="#">Windows 11</a></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-center">Microsoft 365</td>
+                                <td class="px-4 py-2 text-center">Games</td>
+                                <td class="px-4 py-2 text-center">Surface Pro 9</td>
+                                <td class="px-4 py-2 text-center">Surface Laptop 9</td>
+                                <td class="px-4 py-2 text-center"><a href="#">Surface Laptop studio </a></td>
+                                <td class="px-4 py-2 text-center"><a href="#">Windows 11</a></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-center">Microsoft 365</td>
+                                <td class="px-4 py-2 text-center">Games</td>
+                                <td class="px-4 py-2 text-center">Surface Pro 9</td>
+                                <td class="px-4 py-2 text-center">Surface Laptop 9</td>
+                                <td class="px-4 py-2 text-center"><a href="#">Surface Laptop studio </a></td>
+                                <td class="px-4 py-2 text-center"><a href="#">Windows 11</a></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-center">Microsoft 365</td>
+                                <td class="px-4 py-2 text-center">Games</td>
+                                <td class="px-4 py-2 text-center">Surface Pro 9</td>
+                                <td class="px-4 py-2 text-center">Surface Laptop 9</td>
+                                <td class="px-4 py-2 text-center"><a href="#">Surface Laptop studio </a></td>
+                                <td class="px-4 py-2 text-center"><a href="#">Windows 11</a></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-center">Microsoft 365</td>
+                                <td class="px-4 py-2 text-center">Games</td>
+                                <td class="px-4 py-2 text-center">Surface Pro 9</td>
+                                <td class="px-4 py-2 text-center">Surface Laptop 9</td>
+                                <td class="px-4 py-2 text-center"><a href="#">Surface Laptop studio </a></td>
+                                <td class="px-4 py-2 text-center"><a href="#">Windows 11</a></td>
+                            </tr>
+                            <!-- Add more rows with data as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </footer> 
+        <footer class="bg-white text-black text-center py-4">
+            <p>&copy; 2023 Microsoft</p>
+        </footer>
+ 
+ <script>
+    document.addEventListener('alpine:init', () => {
+    Alpine.data('slider', () => ({
+        currentIndex: 1,
+        images: [
+            'https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Highlight-Surface-Laptop-5-M1-Platinum-Graphite-01-1:VP5-1920x600',
+            'https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Highlight-Surface-Pro-9-M1-Family-02-1:VP5-1920x600'
+        ],
+        back() {
+            if (this.currentIndex > 1) {
+                this.currentIndex = this.currentIndex - 1;
+            }
+        },
+        next() {
+            if (this.currentIndex < this.images.length) {
+                this.currentIndex = this.currentIndex + 1;
+            } else if (this.currentIndex <= this.images.length) {
+                this.currentIndex = this.images.length - this.currentIndex + 1;
+            }
+        },
+    }))
+});
+    </script>
+    <script>
+        
+    </script>
+ </body>
+</html>

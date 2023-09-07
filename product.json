@@ -1,0 +1,74 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Surface Laptop Studio",
+        "category": "Laptops",
+        "description": "The Surface Laptop Studio is a versatile 2-in-1 laptop with a unique design that adapts to your needs. It features a powerful processor, a stunning display, and a comfortable keyboard.",
+        "price": 1699.99,
+        "image": "surface-laptop-studio.jpg",
+        "availability": true,
+        "features": [
+          "13.5-inch PixelSense touchscreen",
+          "Intel Core i7 processor",
+          "16GB RAM, 512GB SSD",
+          "Detachable keyboard and stylus"
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Microsoft 365",
+        "category": "Software",
+        "description": "Microsoft 365 is a suite of productivity apps and cloud services that include Word, Excel, PowerPoint, Outlook, and more. Stay connected and collaborate from anywhere.",
+        "price": 99.99,
+        "image": "microsoft-365.jpg",
+        "rating": 4.9,
+        "reviews": 2500,
+        "availability": true,
+        "features": [
+          "Word, Excel, PowerPoint, Outlook, and more",
+          "1 TB OneDrive cloud storage",
+          "Collaborate in real-time",
+          "Access on multiple devices",
+          "Security and compliance features"
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Xbox Series X",
+        "category": "Gaming Consoles",
+        "description": "The Xbox Series X is the next-generation gaming console from Microsoft. It offers powerful performance, stunning graphics, and a vast library of games.",
+        "price": 499.99,
+        "image": "xbox-series-x.jpg",
+        "rating": 4.8,
+        "reviews": 1800,
+        "availability": true,
+        "features": [
+          "4K gaming and 120fps support",
+          "1TB SSD storage",
+          "Ray tracing technology",
+          "Backward compatibility",
+          "Xbox Game Pass subscription available"
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Xbox Series S",
+        "category": "Gaming Consoles",
+        "description": "The Xbox Series S is a compact, all-digital gaming console. It's designed for casual gamers and offers fast load times and high-quality gaming experiences.",
+        "price": 299.99,
+        "image": "xbox-series-s.jpg",
+        "rating": 4.6,
+        "reviews": 950,
+        "availability": true,
+        "features": [
+          "1440p gaming at 60fps",
+          "512GB SSD storage",
+          "All-digital content",
+          "Backward compatibility",
+          "Xbox Game Pass subscription available"
+        ]
+      }
+    ]
+  }
+  
